@@ -7,35 +7,8 @@ export default function CustomDialog(props) {
             <div className="dialog-box">
                 <h2>Assign Book</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="form">
-                        <label>Borrower:</label>
-                        <select
-                            value={selectedBorrower}
-                            onChange={(b) => onChangeBorrower(b)}
-                            required
-                        >
-                            <option value="">Select Borrower</option>
-                            {borrowers.map((b) => (
-                                <option key={b.id} value={b.id}>
-                                    {b.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="form">
-                        <label>Book:</label>
-                        <select
-                            value={selectedBook?.id || ""}
-                            required
-                            disabled
-                        >
-                            <option value="">Select Book</option>
-                            <option value={selectedBook.id}>{selectedBook.title}</option>
-                        </select>
-
-                    </div>
-
+                    {props.children}
+                    
                     <div className="form-actions">
                         <button type="submit" className="btn">
                             Submit

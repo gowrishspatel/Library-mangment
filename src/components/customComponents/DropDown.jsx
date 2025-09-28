@@ -7,13 +7,13 @@ export const DropDown =(props)=>{
 
             {/* Profile dropdown: opens/closes on click; outside click closes it */}
             <div className="profile-container" ref={profileRef}>
-              <button
-                className="btn profile-btn"
+              <div
+                className={open ? 'profile-btn-active': 'profile-btn'}
                 onClick={(e) => handleOpen(e)}
                 aria-haspopup="true"
               >
                 {label}
-            </button>
+            </div>
 
               {open && (
                 <div className="dropdown-menu" role="menu">

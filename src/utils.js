@@ -18,7 +18,7 @@ export const canEdit = (role) => {
 
 export const validateUser = (email, password, role, users) => {
   const foundUser = users.find(
-    (user) => user.email === email && user.password === password && user.role === role
+    (user) => user.email === email && (user.password === password || user.uid === password) && user.role === role
   );
   return foundUser ? { id: foundUser.id, role: foundUser.role, name: foundUser.name } : null;
 }

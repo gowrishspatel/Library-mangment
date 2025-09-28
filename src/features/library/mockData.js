@@ -27,9 +27,12 @@ export const books = [
 ];
 
 export const users = [
-{ id: 1, name: "Alice", role: "admin" , email: "gow@gmail.com", password: "123"},
+{ id: 1, name: "Alice", role: "user" , email: "gow@gmail.com", password: "123", uid: 'V9TAxGlSdGfoa0kWHunAi1mqHNv2'},
 { id: 2, name: "Bob", role: "user" , email: "bob@gmail.com", password: "user123"},
 { id: 3, name: "Charlie", role: "admin" , email: "lokesh@gmail.com", password: "admin765"},
 { id: 4, name: "David", role: "user" , email: "shiva@gmail.com", password: "user890"},
 { id: 5, name: "Eve", role: "user" , email: "suri@gmail.com", password: "321"},
+{ id: 5, name: "Gowrish", role: "admin" , email: "gowrishspatel@gmail.com", password: "gowrish123", uid: 'X1uhvQpUXueZIAgxWGiBCGs0gMM2'},
+{ id: 5, name: "brp", role: "user" , email: "gowrishspatelbrp@gmail.com", password:'brp123', udi: "vkrwPbggT0RtFclW6EWffvKvzgC3"},
+
 ];

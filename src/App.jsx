@@ -19,7 +19,6 @@ const routes = [
 ];
 
 export function App() {
-  const {user} = useSelector((state) => state.library); // to re-render on auth state change
   
   return (
     <BrowserRouter>

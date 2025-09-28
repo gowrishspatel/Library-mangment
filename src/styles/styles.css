@@ -13,7 +13,10 @@ body {
 }
 
 .navbar {
-  background: #222;
+  background: url("../images/library.jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-position: 'center';
+  opacity: calc(2px);
   color: #fff;
   padding: 0.75rem 1.25rem;
   display: flex;
@@ -34,7 +37,7 @@ body {
 .nav-links a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   transition: color 0.3s ease;
 }
 
@@ -47,18 +50,64 @@ body {
   padding-bottom: 0.125rem;
 }
 
-.page {
+.login-page {
   padding: 1.25rem;
-  max-width: 50rem;
+  padding-right: 2rem;
+  max-width: 30%;
+  margin: 1.25rem auto;
+  background: rgba(255, 255, 255, 0.082);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(2px);
+}
+
+.login-page h1 {
+  margin-bottom: 0.625rem;
+  color: white;
+}
+
+.login-page label,
+.login-page p,
+.login-page h2,
+.login-page h3,
+.login-page h4 {
+  color: white;
+}
+
+
+.home-page {
+  padding: 1.25rem;
+  padding-right: 2rem;
+  max-width: 60%;
   margin: 1.25rem auto;
   background: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
 }
 
-.page h1 {
-  margin-bottom: 0.625rem;
-  color: #222;
+.borrowed-page {
+  padding: 1.25rem;
+  padding-right: 2rem;
+  max-width: 60%;
+  margin: 1.25rem auto;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
+}
+
+.admin-page {
+  padding: 1.25rem;
+  padding-right: 1rem;
+  max-width: 30%;
+  margin: 1.25rem auto;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
+}
+
+.admin-form{
+  margin-bottom: 15px;
+  padding: 0.25rem;
 }
 
 .book-item {
@@ -85,6 +134,11 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   transition: background 0.3s ease;
+  width: 95%;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0.5rem;
 }
 
 .prev {
@@ -145,6 +199,10 @@ input {
   border: 0.0625rem solid #bbb;
   border-radius: 0.25rem;
   font-size: 0.9rem;
+}
+
+.input-label{
+  font-weight: bold;
 }
 
 input:focus {
@@ -226,6 +284,8 @@ input:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
+  max-height: 50vh;
 }
 
 .book-table {
@@ -283,7 +343,15 @@ input:focus {
 .profile-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  color: white;
+  background-color: transparent;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.profile-btn:hover {
+  color: #ffda79;
+  background-color: transparent;
 }
 
 .dropdown-menu {
@@ -388,14 +456,15 @@ input:focus {
 
 .dialog-box {
   background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
+  padding: 1.25rem;     
+  border-radius: 0.5rem;
+  width: 25rem;
   max-width: 90%;
 }
 
 .form {
   margin-bottom: 15px;
+  padding: 0.25rem;
 }
 
 .form label {
@@ -404,7 +473,7 @@ input:focus {
 }
 
 .form select {
-  width: 100%;
+  width: 95%;
   padding: 8px;
 }
 
@@ -412,17 +481,106 @@ input:focus {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-right: 1.35rem;
+
 }
 
 .btn-return {
   margin-bottom: 1rem;
-  color: "white";
+  color: white;
   background-color: rgb(4, 119, 242);
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
   font-size: 0.9rem;
   padding: 0.375rem 0.75rem;
-  max-width: 5rem !important;
+  align-items: center;
+  max-width: 6rem !important;
+}
 
+.auth-section {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.auth-buttons {
+  background: rgba(255, 255, 255, 0.938);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.role-login-section {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.role-section{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.btn-submit{
+  background-color: rgb(4, 119, 242);
+  border: none;
+  color: white;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  width: 73%;
+  padding: 10px 20px
+}
+
+.btn-submit:hover{
+  background-color: green;
+}
+
+.role-selection{
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.login{
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url("../images/library.jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-position: 'center';
+  min-height: 90vh;
+  padding: 20px
+}
+
+.role-radio{
+  cursor: pointer;
+}
+
+.input.input-field{
+  width: 95%;
+  padding: 0.4rem;
+  margin-top: 0.25rem;
+  padding-right: 0.5rem;
+}
+
+.admin-input{
+  width: 95%;
+  padding: 0.4rem;
+  margin-top: 0.25rem;
 }

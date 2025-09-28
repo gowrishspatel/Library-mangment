@@ -21,7 +21,7 @@ export default function CustomTable({
     <>
       <div className="table-wrap">
         {returnAll && <button className="btn-return" onClick={() => {handleReturnAll()}}>
-            ReturnAll
+            Return All
           </button>}
         <table className={`book-table custom-table ${className}`}>
           <thead>

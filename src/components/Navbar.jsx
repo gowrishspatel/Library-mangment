@@ -39,14 +39,23 @@ export default function Navbar() {
     setProfileOpen((v) => !v);
   }
 
+  const loc = window.location.href.includes('login') === true;
+  
   return (
-    <nav className="navbar">
+    <nav
+      className="navbar"
+      style={{
+        background: loc
+          ? ''
+          : "linear-gradient(45deg, black, transparent)"
+      }}
+    >
       <h1>📚 Hexad Library</h1>
       <div className="nav-links">
         <NavLink
           to="/"
           end
-          className={({ isActive }) => (isActive ? "active" : "")}
+          className={({ isActive }) => (isActive ? "active" : "nav-link")}
         >
           Home
         </NavLink>
