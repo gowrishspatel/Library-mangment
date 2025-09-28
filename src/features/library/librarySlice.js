@@ -25,7 +25,7 @@ const librarySlice = createSlice({
       state.user = { id, name, role };
     },
     logoutUserRequest: (state) => {
-      state.user = {};
+      state.user = null;
     },
     borrowBookRequest: (state, action) => {
       state.loading = true;

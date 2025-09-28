@@ -11,9 +11,6 @@ export default function BookList() {
   const dispatch = useDispatch();
   const { user, borrowed } = useSelector((state) => state.library);
 
-  console.log(user,"dfgsd");
-  
-
   const [localBorrowed, setLocalBorrowed] = useState({});
   const [inProgress, setInProgress] = useState({});
   const [dialogOpen, setDialogOpen] = useState(false);
