@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "../styles/styles.css";
-import { logoutUser } from "../features/library/librarySlice";
+import { logoutUserRequest } from "../features/library/librarySlice";
 import { DropDown } from "./customComponents/DropDown";
 
 export default function Navbar() {
@@ -15,7 +15,7 @@ export default function Navbar() {
   const profileRef = useRef(null);
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(logoutUserRequest());
     setProfileOpen(false);
     navigate("/login");
   };
@@ -31,7 +31,7 @@ export default function Navbar() {
     return () => document.removeEventListener("click", onDocClick);
   }, []);
 
-  const isGuest = !user || user.role === "guest";
+  const isGuest = user == null || user.role === "guest";
   const isAdmin = !!user && user.role === "admin";
 
   const handleOpen = (e) => {
@@ -40,7 +40,7 @@ export default function Navbar() {
   }
 
   const loc = window.location.href.includes('login') === true;
-  
+
   return (
     <nav
       className="navbar"
@@ -80,7 +80,7 @@ export default function Navbar() {
           </NavLink>
         )}
 
-        {user ? (
+        {user !== null ? (
           <DropDown
             profileRef={profileRef}
             open={profileOpen}

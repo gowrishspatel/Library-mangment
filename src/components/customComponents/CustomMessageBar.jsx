@@ -1,31 +1,45 @@
-// ErrorToast.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actionFailure } from "../../features/library/librarySlice";
 
-export default function ErrorToast() {
+export default function CustomMessageBar() {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.library.error);
+  const {tostMsg} = useSelector((state) => state.library);
+
   const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
-    if (error) {
+    if (tostMsg.type === 'error') {
+      setMessage(tostMsg.msg);
+      setType(tostMsg.type);
       setVisible(true);
 
       const timer = setTimeout(() => {
         setVisible(false);
-        dispatch(actionFailure(null));
       }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [error, dispatch]);
 
-  if (!error || !visible) return null;
+    if (tostMsg.type === 'success') {
+      setMessage(tostMsg.msg);
+      setType(tostMsg.type);
+      setVisible(true);
+
+      const timer = setTimeout(() => {
+        setVisible(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [tostMsg, dispatch]);
+
+  if (!visible) return null;
 
   return (
-    <div className="error-toast">
-      {error}
+    <div className={`toast ${type}`}>
+      {message}
     </div>
   );
 }

@@ -7,7 +7,7 @@ const initialState = {
   borrowed: [],
   user: null,
   loading: false,
-  error: null,
+  tostMsg: { msg: '', type: '' },
   page: 1,
   pageSize: 10,
   totalBooks: books.length,
@@ -17,19 +17,15 @@ const librarySlice = createSlice({
   name: "library",
   initialState,
   reducers: {
-    loginUser: (state, action) => {
-      const { email, password, role } = action.payload;
-      const foundUser = validateUser(email, password, role, users);
-      if (foundUser?.length !== 0 && foundUser) {
-        state.user = { id: foundUser.id, role: foundUser.role, name: foundUser.name };
-        state.error = null;
-
-      } else {
-        state.error = "Invalid email or password or role";
-      }
+    loginUserRequest: (state, action) => {
+      state.loading = true;
     },
-    logoutUser: (state) => {
-      state.user = null;
+    loginUserSuccess: (state, action) => {
+      const { id, name, role } = action.payload;
+      state.user = { id, name, role };
+    },
+    logoutUserRequest: (state) => {
+      state.user = {};
     },
     borrowBookRequest: (state, action) => {
       state.loading = true;
@@ -67,14 +63,18 @@ const librarySlice = createSlice({
       state.loading = false;
     },
     actionFailure: (state, action) => {
-      state.error = action.payload;
+      state.tostMsg = { msg: action.payload.msg, type: 'error' };
       state.loading = false;
     },
+    actionSuccess: (state, action) => {
+      state.tostMsg = { msg: action?.payload?.msg, type: 'success' };
+      state.loading = false;
+    }
   },
 });
 
 export const {
-  borrowBookRequest, borrowBookSuccess, returnBookRequest, returnBookSuccess, addBookRequest, loginUser, logoutUser,
-  addBookSuccess, actionFailure, } = librarySlice.actions;
+  borrowBookRequest, borrowBookSuccess, returnBookRequest, returnBookSuccess, addBookRequest, loginUserRequest, logoutUserRequest,
+  addBookSuccess, actionFailure, actionSuccess, loginUserSuccess } = librarySlice.actions;
 
 export default librarySlice.reducer;

@@ -11,6 +11,9 @@ export default function BookList() {
   const dispatch = useDispatch();
   const { user, borrowed } = useSelector((state) => state.library);
 
+  console.log(user,"dfgsd");
+  
+
   const [localBorrowed, setLocalBorrowed] = useState({});
   const [inProgress, setInProgress] = useState({});
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -67,7 +70,7 @@ export default function BookList() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (!selectedBorrower || !selectedBook) {
-      dispatch(actionFailure("Please select both borrower and book"));
+      dispatch(actionFailure({msg: "Please select both borrower and book", type: "error"}));
       return;
     }
     const borrower = users.find((u) => u.id === parseInt(selectedBorrower));

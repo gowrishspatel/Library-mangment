@@ -298,7 +298,7 @@ input:focus {
 }
 
 .book-table thead {
-  background: linear-gradient(90deg, #f1f5fb, #f8fbff);
+  background: linear-gradient(90deg, #6b6d70, #cdd2d8);
 }
 
 .book-table th,
@@ -345,8 +345,9 @@ input:focus {
   align-items: center;
   color: white;
   background-color: transparent;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
+
 }
 
 .profile-btn:hover {
@@ -359,7 +360,7 @@ input:focus {
   right: 0;
   top: calc(100% + 0.5rem);
   min-width: 11.25rem;
-  background: #ffffff;
+  background: #e5e6eb;
   color: #222;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1.875rem rgba(15, 23, 42, 0.12);
@@ -410,17 +411,31 @@ input:focus {
   text-overflow: ellipsis;
 }
 
-.error-toast {
+.toast {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #f44336;
   color: white;
   padding: 12px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   font-size: 14px;
+}
+
+.toast.error {
+  background: #e74c3c; /* red */
+}
+
+.toast.success {
+  background: #2ecc71; /* green */
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-20px); }
 }
 
 .actions-cell {
@@ -581,6 +596,12 @@ input:focus {
 
 .admin-input{
   width: 95%;
+  padding: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.login-input{
+  width: 100%;
   padding: 0.4rem;
   margin-top: 0.25rem;
 }

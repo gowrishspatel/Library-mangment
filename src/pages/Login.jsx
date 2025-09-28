@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionFailure, loginUser } from "../features/library/librarySlice";
+import { actionFailure, loginUserRequest } from "../features/library/librarySlice";
 import { useNavigate } from "react-router-dom";
-import bgImage from "../images/library.jpg";
 import Auth from "../auth/Auth";
 import CustomInput from "../components/customComponents/CustomInput";
 
@@ -30,15 +29,15 @@ export default function Login() {
     e.preventDefault();
 
     if (!email || !password) {
-      dispatch(actionFailure("Please enter email and password"));
+      dispatch(actionFailure({msg: "Please enter email and password", Type: "error"}));
       return;
     }
 
     if (!isValidEmail(email)) {
-      dispatch(actionFailure("Please enter a valid email address"));
+      dispatch(actionFailure({msg: "Please enter a valid email address", type: "error"}));
       return;
     }
-    dispatch(loginUser({ email, password, role }));
+    dispatch(loginUserRequest({ email, password, role }));
   };
 
   const onChangeRole = (e) => {
@@ -54,26 +53,22 @@ export default function Login() {
         </div>
         <div className="role-selection">
           <h4>Select Role:</h4>
-          <label>
-            <input
-              type="radio"
-              value="user"
-              className="role-radio"
-              checked={role === "user"}
-              onChange={onChangeRole}
-            />
-            User
-          </label>
-          <label style={{ marginLeft: "15px" }}>
-            <input
-              type="radio"
-              value="admin"
-              className="role-radio"
-              checked={role === "admin"}
-              onChange={onChangeRole}
-            />
-            Admin
-          </label>
+          <CustomInput
+            label="User"
+            type="radio"
+            value="user"
+            checked={role === "user"}
+            onChange={onChangeRole}
+            name="role"
+          />
+          <CustomInput
+            label="Admin"
+            type="radio"
+            value="admin"
+            checked={role === "admin"}
+            onChange={onChangeRole}
+            name="role"
+          />
         </div>
 
         {showLogin && <>
@@ -85,6 +80,7 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
+              className="login-input"
             />
             <CustomInput
               label="Password:"
@@ -94,6 +90,7 @@ export default function Login() {
               placeholder="Enter your password"
               required
               showPasswordToggle
+              className="login-input"
               onTogglePassword={(e) => setShowPassword(e.target.checked)}
             />
 
