@@ -9,7 +9,6 @@ import {
   loginUserSuccess,
 } from "./librarySlice";
 import { validateUser } from "../../utils";
-import {users} from "./mockData";
 
 function* borrowBookSaga(action) {
   try {
@@ -67,14 +66,14 @@ function* loginUserSaga(action) {
   try {
     yield delay(500);
     const { email, password, role } = action.payload;
-    const foundUser = validateUser(email, password, role, users);
+    const foundUser = validateUser(email, password, role);
     let user;
-    if (foundUser?.length !== 0 && foundUser) {
+    if (foundUser !== null) {
         user = { id: foundUser.id, role: foundUser.role, name: foundUser.name };
         yield put(loginUserSuccess(user));
         yield put (actionSuccess({msg: "Login Success", type: "success"}));
       } else {
-        yield put (actionSuccess({msg: "Login Failed", type: "error"}));
+        yield put (actionFailure({msg: "Login Failed", type: "error"}));
       }
   } catch (e) {
     yield put(actionFailure({ msg: e.message, type: "error" }));

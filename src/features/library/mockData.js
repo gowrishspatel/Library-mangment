@@ -34,5 +34,4 @@ export const users = [
 { id: 5, name: "Eve", role: "user" , email: "suri@gmail.com", password: "321"},
 { id: 5, name: "Gowrish", role: "admin" , email: "gowrishspatel@gmail.com", password: "gowrish123", uid: 'X1uhvQpUXueZIAgxWGiBCGs0gMM2'},
 { id: 5, name: "brp", role: "user" , email: "gowrishspatelbrp@gmail.com", password:'brp123', udi: "vkrwPbggT0RtFclW6EWffvKvzgC3"},
-
 ];
