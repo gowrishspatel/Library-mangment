@@ -158,5 +158,35 @@ Authentication & Roles:
 - Implement JWT/OAuth authentication.
 - Add dark mode support.
 
+# 📚 Hexa Library Management
+
+A simple **Library Management System** built with **React, Redux Toolkit, Firebase Auth, and Redux-Saga**.  
+Supports user and admin roles, book borrowing/returning, and Google/GitHub login.
+
+---
+
+## 🚀 Features
+- 🔐 Authentication (Email/Password + Google/GitHub)
+- 👥 Role-based login (Admin/User)
+- 📖 Borrow and return books
+- 📊 Manage stock of books
+- 🌐 Deployed on **Vercel**
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend:** React, Redux Toolkit, Redux-Saga
+- **Auth & DB:** Firebase
+- **Deployment:** Vercel
+
+---
+
+## ⚡ Installation
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/your-username/library-management.git
+   cd library-management
+
+
 # Author
 Developed by Gowrish S Patel for Hexad Frontend Developer Assignment.
