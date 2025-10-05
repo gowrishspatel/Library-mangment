@@ -6,19 +6,19 @@ const roles = {
   ADMIN: 'admin',   
 };
 
-export const canRead = (role) => {
+export const canRead = (role: any) => {
   return role === roles.ADMIN || role === roles.USER || role === roles.GUEST;
 };
 
-export const canWrite = (role) => {
+export const canWrite = (role: string) => {
   return role === roles.ADMIN || role === roles.USER;
 };
 
-export const canEdit = (role) => {
+export const canEdit = (role: string) => {
   return role === roles.ADMIN;
 };
 
-export const validateUser = (email, password, role) => {
+export const validateUser = (email: string, password: string, role: string) => {
   const foundUser = users.find(
     (user) => user.email === email && (user.password === password || user.uid === password) && user.role === role
   );

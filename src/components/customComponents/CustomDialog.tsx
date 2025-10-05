@@ -1,13 +1,30 @@
-export default function CustomDialog(props) {
+import { FormEvent, ReactNode } from "react";
 
-    const { borrowers = [], selectedBook, selectedBorrower, onChangeBorrower, handleSubmit, onClose } = props;
+interface User {
+  id: number;
+  name: string;
+  role: string;
+  email: string;
+  password?: string;
+  uid?: string;
+}
+
+interface dialogProps {
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onClose: () => void;
+  children: ReactNode;
+}
+
+export default function CustomDialog(props: dialogProps) {
+
+    const { handleSubmit, onClose, children } = props;
 
     return (
         <div className="dialog">
             <div className="dialog-box">
                 <h2>Assign Book</h2>
                 <form onSubmit={handleSubmit}>
-                    {props.children}
+                    {children}
                     
                     <div className="form-actions">
                         <button type="submit" className="btn">

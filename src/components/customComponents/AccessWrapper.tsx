@@ -1,9 +1,17 @@
+import { RootState } from "../../app/store";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-export default function AccessWrapper({ Component, roles = [], allowGuest = false }) {
-  const { user } = useSelector((state) => state.library);
+interface accessWrapperProps{
+Component: React.ComponentType;
+roles?: String[];
+allowGuest: boolean;
+}
+
+export default function AccessWrapper(props: accessWrapperProps) {
+  const { Component, roles = [], allowGuest = false } = props;
+  const { user } = useSelector((state: RootState) => state.library);
 
   // Not logged in
   if (!user) {

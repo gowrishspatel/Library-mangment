@@ -1,13 +1,14 @@
+import { RootState } from "../../app/store";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function CustomMessageBar() {
   const dispatch = useDispatch();
-  const {tostMsg} = useSelector((state) => state.library);
+  const {tostMsg} = useSelector((state: RootState) => state.library);
 
-  const [visible, setVisible] = useState(false);
-  const [message, setMessage] = useState("");
-  const [type, setType] = useState("");
+  const [visible, setVisible] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  const [type, setType] = useState<string>("");
 
   useEffect(() => {
     if (tostMsg.type === 'error') {

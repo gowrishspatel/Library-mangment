@@ -1,6 +1,16 @@
 import React from "react";
 
-export const DropDown =(props)=>{
+interface DropDownProps {
+  profileRef: React.RefObject<HTMLDivElement>;
+  open: boolean;
+  name: string;
+  label: string;
+  label2?: string;
+  handleOpen: (e: React.MouseEvent<HTMLDivElement>) => void;
+  handleLogout: () => void;
+}
+
+export const DropDown =(props: DropDownProps)=>{
     const {profileRef,open,name,label,label2,handleOpen,handleLogout} = props;
     return(
         <>
@@ -9,7 +19,7 @@ export const DropDown =(props)=>{
             <div className="profile-container" ref={profileRef}>
               <div
                 className={open ? 'profile-btn-active': 'profile-btn'}
-                onClick={(e) => handleOpen(e)}
+                onClick={handleOpen}
                 aria-haspopup="true"
               >
                 {label}

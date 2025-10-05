@@ -4,8 +4,8 @@ import { addBookRequest } from "../features/library/librarySlice";
 import CustomInput from "./customComponents/CustomInput";
 
 export default function AdminPanel() {
-  const [title, setTitle] = useState("");
-  const [stock, setStock] = useState(1);
+  const [title, setTitle] = useState<string>("");
+  const [stock, setStock] = useState<number>(1);
   const dispatch = useDispatch();
 
   const handleSubmit = () => {

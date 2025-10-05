@@ -1,35 +1,44 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFailure, loginUserRequest } from "../features/library/librarySlice";
 import { useNavigate } from "react-router-dom";
 import Auth from "../auth/Auth";
 import CustomInput from "../components/customComponents/CustomInput";
+import { RootState } from "../app/store";
+
+interface LoginState {
+  email: string;
+  password: string;
+  showPassword: boolean;
+  role: string;
+}
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const { user } = useSelector((state) => state.library);
-  const [role, setRole] = useState("");
+  const user = useSelector((state: RootState) => state.library.user)
   const dispatch = useDispatch();
   const nav = useNavigate();
-  const [showLogin, showLoginForm] = useState(false);
+  
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [role, setRole] = useState<string>("");
+  const [showLogin, showLoginForm] = useState<boolean>(false);
 
   useEffect(() => {
     if (user) nav("/");
   }, [user, nav]);
 
   // Basic email validation function
-  const isValidEmail = (email) => {
+  const isValidEmail = (email: string) => {
     // simple regex for email check
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!email || !password) {
-      dispatch(actionFailure({msg: "Please enter email and password", Type: "error"}));
+      dispatch(actionFailure({msg: "Please enter email and password", type: "error"}));
       return;
     }
 
@@ -40,7 +49,7 @@ export default function Login() {
     dispatch(loginUserRequest({ email, password, role }));
   };
 
-  const onChangeRole = (e) => {
+  const onChangeRole = (e: ChangeEvent<HTMLInputElement>) => {
     setRole(e.target.value);
     showLoginForm(true);
   }
@@ -77,7 +86,7 @@ export default function Login() {
               label="Email:"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
               className="login-input"
@@ -86,12 +95,12 @@ export default function Login() {
               label="Password:"
               type={showPassword ? "text" : "password"}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               placeholder="Enter your password"
               required
               showPasswordToggle
               className="login-input"
-              onTogglePassword={(e) => setShowPassword(e.target.checked)}
+              onTogglePassword={(e: ChangeEvent<HTMLInputElement>) => setShowPassword(e.target.checked)}
             />
 
             <div className='role-login-section'>

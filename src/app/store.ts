@@ -3,6 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import libraryReducer from "../features/library/librarySlice";
 import rootSaga from "./rootSaga";
 
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
@@ -14,5 +15,7 @@ const store = configureStore({
 });
 
 sagaMiddleware.run(rootSaga);
+
+export type RootState = ReturnType<typeof store.getState>;
 
 export { store };

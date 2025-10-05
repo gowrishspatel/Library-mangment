@@ -1,24 +1,37 @@
 import { useDispatch, useSelector } from "react-redux";
 import CustomTable from "./customComponents/CustomTable";
 import { returnBookRequest } from "../features/library/librarySlice";
+import { RootState } from "../app/store";
+
+interface BorrowedBook {
+  userId: string | number;
+  bookId: string | number;
+  title: string;
+  userName: string;
+}
 
 export default function BorrowedList() {
   const dispatch = useDispatch();
-  const { borrowed, user } = useSelector((state) => state.library);
+  const { borrowed, user } = useSelector((state: RootState) => state.library);
 
-  const handleReturn = (b) => {
+  interface handelReturnProps{
+    userId: string | number;
+    bookId: string | number
+  }
+
+  const handleReturn = (b: handelReturnProps) => {
     dispatch(returnBookRequest({ userId: b.userId, bookId: b.bookId }));
   };
 
-  let userBorrowedBooks;
+  let userBorrowedBooks: BorrowedBook[] = [];
   if (user && (user?.role === "user")) {
-    userBorrowedBooks = borrowed.filter((b) => b.userId == user?.id);
+    userBorrowedBooks = borrowed.filter((b: any) => b.userId == user?.id);
   } else {
     userBorrowedBooks = borrowed;
   }
 
   const handleReturnAll = () => {
-    const booksToReturn = userBorrowedBooks.map((b) => ({
+    const booksToReturn = userBorrowedBooks.map((b: any) => ({
       userId: b.userId,
       bookId: b.bookId,
     }));
@@ -31,7 +44,7 @@ export default function BorrowedList() {
     { header: "Borrower", accessor: "userName" },
     {
       header: "Action",
-      cell: (row) => (
+      cell: (row: any) => (
         <button className="btn small" onClick={() => handleReturn(row)}>
           Return
         </button>

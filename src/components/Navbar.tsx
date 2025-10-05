@@ -4,15 +4,16 @@ import { useSelector, useDispatch } from "react-redux";
 import "../styles/styles.css";
 import { logoutUserRequest } from "../features/library/librarySlice";
 import { DropDown } from "./customComponents/DropDown";
+import { RootState } from "../app/store";
 
 export default function Navbar() {
-  const user = useSelector((state) => state.library?.user);
+  const user = useSelector((state: RootState) => state.library?.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // use ref and state for click-based dropdown
-  const [profileOpen, setProfileOpen] = useState(false);
-  const profileRef = useRef(null);
+  const [profileOpen, setProfileOpen] = useState<boolean>(false);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
     dispatch(logoutUserRequest());
@@ -22,7 +23,7 @@ export default function Navbar() {
 
   // close dropdown when clicking outside
   useEffect(() => {
-    function onDocClick(e) {
+    function onDocClick(e: any) {
       if (profileRef.current && !profileRef.current.contains(e.target)) {
         setProfileOpen(false);
       }
@@ -34,7 +35,7 @@ export default function Navbar() {
   const isGuest = user == null || user.role === "guest";
   const isAdmin = !!user && user.role === "admin";
 
-  const handleOpen = (e) => {
+  const handleOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setProfileOpen((v) => !v);
   }

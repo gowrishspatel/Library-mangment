@@ -8,10 +8,15 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 const auth = getAuth(app);
 
-function Auth({role}) {
+interface authProps {
+  role: string
+}
+
+function Auth(props: authProps) {
+  const {role} = props;
   const navigate= useNavigate();
   const dispatch = useDispatch();
-  const [userRole, setUserRole] = useState(role);
+  const [userRole, setUserRole] = useState<string>(role);
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -19,7 +24,7 @@ function Auth({role}) {
       const result = await signInWithPopup(auth, provider);
       console.log('Google Sign-in successful:', result.user);
       const userData = result.user;
-      dispatch(loginUserRequest({ email: userData.email, password : userData?.uid, role: userRole }));
+      dispatch(loginUserRequest({ email: userData.email ?? "no-email@example.com", password : userData?.uid, role: userRole }));
       navigate('/');
 
     } catch (error) {

@@ -1,45 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import CustomTable from "./customComponents/CustomTable";
 import { actionFailure, borrowBookRequest } from "../features/library/librarySlice";
 import CustomDialog from "./customComponents/CustomDialog";
 import { users } from "../features/library/mockData";
 import CustomSelect from "./customComponents/CustomSelectBox";
+import { RootState } from "../app/store";
+
+interface Book {
+  id: string | number;
+  stock: number;
+}
+
+interface RowProps {
+  id?: number | string;
+  title?: string;
+  author?: string;
+  stock?: number;
+  [key: string]: any;
+}
+
+interface Column<T = any> {
+  header: string;
+  accessor?: keyof T | string;
+  cell?: (row: T) => React.ReactNode;
+}
+
 
 export default function BookList() {
-  const books = useSelector((state) => state.library.books || []);
+  const books = useSelector((state: RootState) => state.library.books || []);
   const dispatch = useDispatch();
-  const { user, borrowed } = useSelector((state) => state.library);
+  const { user, borrowed } = useSelector((state: RootState) => state.library);
 
-  const [localBorrowed, setLocalBorrowed] = useState({});
-  const [inProgress, setInProgress] = useState({});
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [selectedBook, setSelectedBook] = useState(null);
-  const [selectedBorrower, setSelectedBorrower] = useState("");
+  const [localBorrowed, setLocalBorrowed] = useState<Record<string | number, boolean>>({});
+  const [inProgress, setInProgress] = useState<Record<string | number, boolean>>({});
+
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [selectedBook, setSelectedBook] = useState<any>(null);
+  const [selectedBorrower, setSelectedBorrower] = useState<string>("");
 
   useEffect(() => {
-    const map = {};
-    if (books.length === 0) return;
+  const map: Record<string | number, boolean> = {};
+  if (books.length === 0) return;
 
-    books?.forEach((b) => {
+    books?.forEach((b: any) => {
       map[b.id] = !!b.borrowed || !!b.isBorrowed || !!b.checkedOut;
     });
     setLocalBorrowed(map);
     setInProgress((prev) => {
       const next = { ...prev };
-      books?.forEach((b) => {
+      books?.forEach((b: any) => {
         if (next[b.id]) delete next[b.id];
       });
       return next;
     });
   }, [books]);
 
-  const handleActionBorrow = (action, row) => {
+interface RowProps {
+  id?: number | string;
+  title?: string;
+}
+
+
+const handleActionBorrow = (action: any, row: RowProps) => {
     const id = row?.id;
+    if (id === undefined || id === null) return;
     const name = row?.title;
 
     const alreadyBorrowed = !!localBorrowed[id];
-    const book = books?.find((b) => b.id === id) || {};
+    const book = books?.find((b: Book) => b.id === id) || { stock: 0 };
     const baseCopies = book?.stock ?? 0;
     const copiesRemaining = Math.max(0, baseCopies - (localBorrowed[id] ? 1 : 0));
 
@@ -48,7 +77,7 @@ export default function BookList() {
     setInProgress((p) => ({ ...p, [id]: true }));
     setLocalBorrowed((p) => ({ ...p, [id]: true }));
 
-    dispatch(borrowBookRequest({ userId: user?.id, bookId: id, name: name, userName: user?.name }));
+    dispatch(borrowBookRequest({ userId: user?.id!, bookId: id, name: name, userName: user?.name }));
 
     setTimeout(() => {
       setInProgress((p) => {
@@ -59,25 +88,25 @@ export default function BookList() {
     }, 3000);
   };
 
-  const handleActionAssign = (action, row) => {
+  const handleActionAssign = (action: any, row: RowProps) => {
     setSelectedBook(row);
     setDialogOpen(true);
   }
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedBorrower || !selectedBook) {
       dispatch(actionFailure({msg: "Please select both borrower and book", type: "error"}));
       return;
     }
     const borrower = users.find((u) => u.id === parseInt(selectedBorrower));
-    dispatch(borrowBookRequest({ userId: selectedBorrower, bookId: selectedBook.id, name: selectedBook.title, userName: borrower.name }));
+    dispatch(borrowBookRequest({ userId: selectedBorrower, bookId: selectedBook.id, name: selectedBook.title, userName: borrower?.name }));
     setDialogOpen(false);
     setSelectedBook(null);
     setSelectedBorrower("");
   }
 
-  const onChangeBorrower = (value) => {
+  const onChangeBorrower = (value: string) => {
     setSelectedBorrower(value)
   };
 
@@ -86,7 +115,7 @@ export default function BookList() {
     setSelectedBook(null);
   }
 
-  const baseColumns = [
+  const baseColumns: Column<RowProps>[] = [
     { header: "ID", accessor: "id" },
     { header: "Title", accessor: "title" },
     { header: "Author", accessor: "author" },
@@ -98,12 +127,12 @@ export default function BookList() {
   if (user && (user.role === "user" || user.role === "admin")) {
     columns.push({
       header: "Actions",
-      cell: (row) => {
+      cell: (row: any) => {
         const busy = !!inProgress[row.id];
 
         // check if current user has borrowed this book
         const borrowedByUser = borrowed.find(
-          (b) => b.bookId === row.id && b.userId === user.id && b.userName === user.name
+          (b: any) => b.bookId === row.id && b.userId === user.id && b.userName === user.name
         );
 
         const hasBorrowed = !!borrowedByUser;
@@ -162,11 +191,8 @@ export default function BookList() {
   return (
     <>{dialogOpen && (
       <CustomDialog
-        borrowers={users}
         handleSubmit={handleFormSubmit}
         onClose={handleDialogClose}
-        setSelectedBook={setSelectedBook}
-        form
       >
         <CustomSelect
           label="Borrower:"
@@ -194,7 +220,7 @@ export default function BookList() {
     )}
       <div className="container">
         <h2>Library Books</h2>
-        <CustomTable columns={columns} data={books} rowKey="id" />
+        <CustomTable columns={columns} data={books} />
       </div>
     </>
   );

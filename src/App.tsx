@@ -1,10 +1,9 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AccessWrapper from "./components/customComponents/AccessWrapper";
 import "./styles/styles.css";
 import ErrorToast from "./components/customComponents/CustomMessageBar";
-import { useSelector } from "react-redux";
 
 const Home = lazy(() => import("./pages/Home"));
 const Borrowed = lazy(() => import("./pages/Borrowed"));

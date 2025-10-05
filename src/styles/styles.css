@@ -396,6 +396,10 @@ input:focus {
   padding: 0.5rem 0.625rem;
 }
 
+.dropdown-item.logout-btn.btn:hover {
+  background: #767776;
+}
+
 @media (max-width: 520px) {
   .dropdown-menu {
     right: 0.25rem;
