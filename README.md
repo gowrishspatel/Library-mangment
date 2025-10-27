@@ -184,7 +184,7 @@ Supports user and admin roles, book borrowing/returning, and Google/GitHub login
 ## ⚡ Installation
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/library-management.git
+   git clone https://github.com/gowrishspatel/library-management.git
    cd library-management
 
 
